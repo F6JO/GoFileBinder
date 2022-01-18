@@ -1,0 +1,2 @@
+go build GoFileBinder.go
+GoFileBinder.exe 木马.exe 捆绑文件
