@@ -17,4 +17,14 @@ golang免杀捆绑器 捆绑器免杀效果会持续更新下去
 
 ### 修改：
 
-​	修改捆绑的程序执行后不会消失	
+* 修改捆绑的程序执行后不会删除
+* 加入ico图标的exe生成
+
+GoFileBinder.exe 木马.exe 捆绑文件
+GoFileBinder.exe 木马.exe 捆绑文件 syso文件
+
+
+
+syso文件生成：
+
+​	https://wanghaiqing.com/mobile/article/b92edef6-61bc-431b-af41-b813bc6a5e8c/

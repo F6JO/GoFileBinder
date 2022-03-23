@@ -1,2 +1,3 @@
 go build GoFileBinder.go
 GoFileBinder.exe 木马.exe 捆绑文件
+GoFileBinder.exe 木马.exe 捆绑文件 ico图标文件
