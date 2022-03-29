@@ -19,6 +19,7 @@ golang免杀捆绑器 捆绑器免杀效果会持续更新下去
 
 * 修改捆绑的程序执行后不会删除
 * 加入ico图标的exe生成
+* 取消-ldflags="-H windowsgui"隐藏黑窗口，改用代码实现，增强免杀效果
 
 GoFileBinder.exe 木马.exe 捆绑文件
 GoFileBinder.exe 木马.exe 捆绑文件 syso文件
