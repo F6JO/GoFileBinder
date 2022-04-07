@@ -170,21 +170,22 @@ func str_func(hanshu interface{}, canshu ...interface{}) []reflect.Value {
 	lujing := ""
 	comm := "go build main.go"
 	lujing2 := ""
+
 	if len(os.Args) == 4 {
-		os.Mkdir("./dabao", os.ModePerm)
-		lujing = "./dabao/"
+		os.Mkdir("./main", os.ModePerm)
+		lujing = "./main/"
 		lj, _ := os.Getwd()
-		lujing2 = lj+"\\dabao\\"
+		lujing2 = lj+"\\main\\"
 		comm =  "cd "+ lujing2 + " && go build"
 		if strings.HasSuffix(os.Args[3],".syso") {
 			nr,err := ioutil.ReadFile(os.Args[3])
 			if err != nil {
 				return
 			}
-			f, _ := os.Create(lujing + "tubiao.syso")
+			f, _ := os.Create(lujing + "ico.syso")
 			_, _ = f.Write(nr)
 			f.Close()
-			exitfile(lujing + "tubiao.syso")
+			exitfile(lujing + "ico.syso")
 			time.Sleep(time.Duration(1) * time.Second)
 		}else {
 			return
@@ -206,7 +207,7 @@ func str_func(hanshu interface{}, canshu ...interface{}) []reflect.Value {
 	cmd := exec.Command(lujing2 +"Yihsiwei.bat")
 	cmd.Start()
 
-	exitfile(lujing +"dabao.exe")
+	exitfile(lujing +"main.exe")
 	os.RemoveAll(lujing +"main.go")
 	os.RemoveAll(lujing +"Yihsiwei.bat")
 	os.RemoveAll(lujing +"tubiao.syso")
